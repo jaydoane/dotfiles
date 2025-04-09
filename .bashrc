@@ -35,9 +35,29 @@ maybe_prepend_path() {
     echo $PATH | grep -q $prepend || export PATH=$prepend:$PATH
 }
 
-# homebrew
-maybe_prepend_path /usr/local/bin # x86_64
-maybe_prepend_path /opt/homebrew/bin # arm64
+maybe_append_path() {
+    append="$1"
+    echo $PATH | grep -q $append || export PATH=$PATH:$append
+}
+
+maybe_append_path ~/bin
+#maybe_prepend_path /usr/local/bin
+# homebrew arm64
+# maybe_prepend_path /opt/homebrew/bin
+# maybe_prepend_path /opt/homebrew/sbin
+
+export SHELL_ARCH=$(arch | sed -e 's/.*86/x86/')
+
+if [ $SHELL_ARCH = 'arm64' ]; then
+    BREW_PREFIX=/opt/homebrew
+else
+    BREW_PREFIX=/usr/local
+fi
+eval $(${BREW_PREFIX}/bin/brew shellenv)
+
+alias ibrew='arch -x86_64 /usr/local/bin/brew'
+alias mbrew='arch -arm64 /opt/homebrew/bin/brew'
+
 HOMEBREW_API_TOKEN_FILE=~/.homebrew.github.api.token
 if test -f "$HOMEBREW_API_TOKEN_FILE"; then
     export HOMEBREW_GITHUB_API_TOKEN=$(<$HOMEBREW_API_TOKEN_FILE)
@@ -106,20 +126,10 @@ fi
 #export SSL_CERT_FILE=~/prev/.cacert.pem
 
 #ulimit -n 2560
-ulimit -n 65536
+ulimit -n 131072
+ulimit -c unlimited # enable core dumps
 
 alias processes-on-port="netstat -tulpn" # linux
-
-# export PYTHONSTARTUP="$HOME/.pythonstartup.py"
-
-# export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-# if [ -x "$(command -v pyenv)" ]; then
-#     export PYENV_ROOT="$HOME/.pyenv"
-#     export PATH="$PYENV_ROOT/bin:$PATH"
-#     eval "$(pyenv init -)"
-#     # eval "$(pyenv virtualenv-init -)"
-#     pyenv activate default-3.7.6
-# fi
 
 # git
 git-current-branch() {
@@ -152,7 +162,7 @@ backup-home() {
 }
 
 sync-mac() {
-    rsync -avPW --files-from=$HOME/.sync-files ~ /Volumes/jay/
+    rsync -avPW --files-from=$HOME/.sync-files ~ /Volumes/jay/backup-2021-macbook-pro
 }
 
 function sync-home() {
@@ -165,26 +175,36 @@ function sync-home() {
 
 [ -e ~/.bashrc-cloudant ] && . ~/.bashrc-cloudant
 
-# ibmcloud
-path=/usr/local/ibmcloud/autocomplete/bash_autocomplete
-test -f $path && source $path
-#source /usr/local/ibmcloud/autocomplete/bash_autocomplete
-
-# needed for gpg signing
+# Needed for gpg signing
 export GPG_TTY=$(tty)
 
-# .krew
-export PATH=$HOME/.krew/bin:$PATH
-
-# integrate asdf
-. $(brew --prefix asdf)/asdf.sh
-asdf reshim
+# Integrate asdf
+. $(brew --prefix asdf)/libexec/asdf.sh
+#asdf reshim
 
 # Hook direnv into your shell.
 eval "$(asdf exec direnv hook bash)"
 # A shortcut for asdf managed direnv.
 direnv() { asdf exec direnv "$@"; }
 
-# # should be at end
-# eval "$(direnv hook bash)"
+# Should be at end
 source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/bashrc"
+
+# https://starship.rs/guide/#%F0%9F%9A%80-installation
+command -v starship &> /dev/null && eval "$(starship init bash)"
+
+# https://direnv.net/docs/hook.html#bash
+command -v direnv &> /dev/null && eval "$(direnv hook bash)"
+
+# Make direnv easier on the eyes https://esham.io/2023/10/direnv
+export DIRENV_LOG_FORMAT=$'\033[2mdirenv: %s\033[0m'
+
+#export KERL_CONFIGURE_OPTIONS="--without-megaco"
+
+. "$HOME/.cargo/env"
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/jay/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+
+#eval "$(/opt/homebrew/bin/mise activate bash)"
