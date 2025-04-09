@@ -4,3 +4,6 @@ Thumbs.db
 .bundle
 erlcinfo
 .dir-locals.el
+.tool-versions
+.envrc
+node_modules
