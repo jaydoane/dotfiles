@@ -31,19 +31,29 @@ then
 fi
 
 # Set architecture-specific brew share path.
-arch_name="$(uname -m)"
-if [ "${arch_name}" = "x86_64" ]; then
+# arch_name="$(uname -m)"
+# if [ "${arch_name}" = "x86_64" ]; then
+#     share_path="/usr/local/share"
+# elif [ "${arch_name}" = "arm64" ]; then
+#     share_path="/opt/homebrew/share"
+# else
+#     echo "Unknown architecture: ${arch_name}"
+# fi
+
+export SHELL_ARCH=$(arch | sed -e 's/.*86/x86/')
+
+if [ "${SHELL_ARCH}" = "x86" ]; then
     share_path="/usr/local/share"
-elif [ "${arch_name}" = "arm64" ]; then
+elif [ "${SHELL_ARCH}" = "arm64" ]; then
     share_path="/opt/homebrew/share"
 else
-    echo "Unknown architecture: ${arch_name}"
+    echo "Unknown architecture: ${SHELL_ARCH}"
 fi
 
 # Allow history search via up/down keys.
-source ${share_path}/zsh-history-substring-search/zsh-history-substring-search.zsh
-bindkey "^[[A" history-substring-search-up
-bindkey "^[[B" history-substring-search-down
+# source ${share_path}/zsh-history-substring-search/zsh-history-substring-search.zsh
+# bindkey "^[[A" history-substring-search-up
+# bindkey "^[[B" history-substring-search-down
 
 # Git aliases.
 alias gs='git status'
@@ -131,3 +141,7 @@ export ERL_AFLAGS="-kernel shell_history enabled -kernel shell_history_file_byte
 
 # Fancy shell prompt
 eval "$(starship init zsh)"
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/jay/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
