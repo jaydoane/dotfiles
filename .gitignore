@@ -5,5 +5,10 @@ Thumbs.db
 erlcinfo
 .dir-locals.el
 .tool-versions
+.env
 .envrc
 node_modules
+package*.json
+.bloop
+CLAUDE.md
+.claude
