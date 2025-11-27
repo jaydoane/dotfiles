@@ -188,9 +188,6 @@ If REQUIRE-NAME is set, require it if already installed."
               ("<tab>" . dired-subtree-toggle)
               ("<backtab>" . dired-subtree-cycle))) ; S-TAB
 
-;(require 'mise)
-;(add-hook 'after-init-hook #'global-mise-mode)
-
 (add-to-list 'load-path "~/repos/asdf.el")
 (require 'asdf "~/repos/asdf.el/asdf.el")
 (asdf-enable) ;; This ensures Emacs has the correct paths to asdf shims and bin
@@ -1082,5 +1079,8 @@ directory to make multiple eshell windows easier."
 ;; or root '/' directory, Vertico will clear the old path to keep
 ;; only your current input.
 (add-hook 'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy)
+
+(require 'mise)
+(add-hook 'after-init-hook #'global-mise-mode)
 
 ;;; .emacs ends here
