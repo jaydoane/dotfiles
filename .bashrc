@@ -174,7 +174,9 @@ function sync-home() {
           /Volumes/jay/mbp-jay
 }
 
-[ -e ~/.bashrc-cloudant ] && . ~/.bashrc-cloudant
+[ -f ~/.bashrc-cloudant ] && . ~/.bashrc-cloudant
+
+[ -f ~/.env ] && . ~/.env
 
 # Needed for gpg signing
 export GPG_TTY=$(tty)
