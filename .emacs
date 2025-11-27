@@ -805,7 +805,7 @@ directory to make multiple eshell windows easier."
   'interactive)
 
 ;; prefix with M-1 for single character
-(global-set-key (kbd "C-c c") 'copy-from-above-command)
+;(global-set-key (kbd "C-c c") 'copy-from-above-command)
 
 (require 'vterm)
 
