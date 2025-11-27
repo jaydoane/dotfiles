@@ -187,28 +187,8 @@ function sync-home() {
 # Needed for gpg signing
 export GPG_TTY=$(tty)
 
-# Integrate asdf
-. $(brew --prefix asdf)/libexec/asdf.sh
-#asdf reshim
-
-# Hook direnv into your shell.
-eval "$(asdf exec direnv hook bash)"
-# A shortcut for asdf managed direnv.
-direnv() { asdf exec direnv "$@"; }
-
-# Should be at end
-source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/bashrc"
-
 # https://starship.rs/guide/#%F0%9F%9A%80-installation
 command -v starship &> /dev/null && eval "$(starship init bash)"
-
-# https://direnv.net/docs/hook.html#bash
-command -v direnv &> /dev/null && eval "$(direnv hook bash)"
-
-# Make direnv easier on the eyes https://esham.io/2023/10/direnv
-export DIRENV_LOG_FORMAT=$'\033[2mdirenv: %s\033[0m'
-
-#export KERL_CONFIGURE_OPTIONS="--without-megaco"
 
 . "$HOME/.cargo/env"
 
