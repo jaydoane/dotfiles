@@ -196,4 +196,7 @@ command -v starship &> /dev/null && eval "$(starship init bash)"
 export PATH="/Users/jay/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 
-#eval "$(/opt/homebrew/bin/mise activate bash)"
+# force arm64 brew to be first on PATH
+export PATH=/opt/homebrew/bin:$PATH
+
+eval "$(mise activate bash)"
