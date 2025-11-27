@@ -188,14 +188,6 @@ If REQUIRE-NAME is set, require it if already installed."
               ("<tab>" . dired-subtree-toggle)
               ("<backtab>" . dired-subtree-cycle))) ; S-TAB
 
-(add-to-list 'load-path "~/repos/asdf.el")
-(require 'asdf "~/repos/asdf.el/asdf.el")
-(asdf-enable) ;; This ensures Emacs has the correct paths to asdf shims and bin
-
-(use-package direnv
- :config
- (direnv-mode))
-
 ;; json
 (defun beautify-json (start end)
   "Format JSON in region from START to END using python json.tool."
@@ -244,7 +236,6 @@ If REQUIRE-NAME is set, require it if already installed."
 ;; bind RET to py-newline-and-indent
 (add-hook 'python-mode-hook
           (lambda () (define-key python-mode-map "\C-m" 'newline-and-indent)))
-
 
 (defun make-project (cmd)
   "Traveling up the path, find a Makefile and run CMD."
