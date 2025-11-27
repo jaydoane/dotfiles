@@ -400,18 +400,18 @@ If REQUIRE-NAME is set, require it if already installed."
   :defer t
   :hook ((go-mode . eglot-ensure)
          (js-mode . eglot-ensure)
+         (erlang-mode . eglot-ensure)
          (python-mode . eglot-ensure))
   :config
-  (add-to-list 'eglot-server-programs
-               `(python-mode
-                 . ,(eglot-alternatives '("jedi-language-server"
-                                          "pylsp")))))
-;; (use-package python-black
-;;   :ensure t
-;;   :demand t
-;;   :after python
-;;   :hook ((python-mode . python-black-on-save-mode)))
+  ;; ;; Remove default LSP server
+  ;; (setopt eglot-server-programs
+  ;;         (assq-delete-all 'erlang-mode eglot-server-programs))
 
+  ;; ;; Enable ELP
+  ;; (add-to-list 'eglot-server-programs
+  ;;              '(erlang-mode . ("elp" "server")))
+  (add-to-list 'eglot-server-programs
+               '(python-mode . ("pylsp"))))
 
 ;; LSP
 ;; Performance tweaks for LSP
@@ -419,15 +419,12 @@ If REQUIRE-NAME is set, require it if already installed."
 (setq read-process-output-max (* 1024 1024))
 (setq-default lsp-idle-delay 0.500)
 
-;(setq lsp-keymap-prefix "C-l")
 (package-require 'lsp-mode)
-;(add-hook 'erlang-mode-hook #'lsp)
 
 (use-package lsp-mode
   :hook ((c-mode          ; clangd
           c++-mode        ; clangd
           c-or-c++-mode   ; clangd
-          erlang-mode
           java-mode       ; eclipse-jdtls
           web-mode        ; ts-ls/HTML/CSS
           haskell-mode    ; haskell-language-server
