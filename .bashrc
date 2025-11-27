@@ -68,6 +68,12 @@ relink_brew() {
     brew list -1 | while read line; do brew unlink $line; brew link $line; done
 }
 
+# latex
+eval "$(/usr/libexec/path_helper)"
+
+# elp, etc.
+export PATH="~/.local/bin:$PATH"
+
 # emacs
 export PATH=/Applications/Emacs.app/Contents/MacOS:$PATH
 export EDITOR='emacs -q -nw' # for commits, etc.
