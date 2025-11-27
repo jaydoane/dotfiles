@@ -1044,6 +1044,9 @@ directory to make multiple eshell windows easier."
 ;; A few more useful configurations...
 (use-package emacs
   :custom
+  ;; Always ask for y/n keypress instead of typing out 'yes' or 'no'
+  (use-short-answers t)
+
   ;; TAB cycle if there are only few candidates
   ;; (completion-cycle-threshold 3)
 
