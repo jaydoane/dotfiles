@@ -41,10 +41,11 @@ maybe_append_path() {
 }
 
 maybe_append_path ~/bin
+maybe_append_path /opt/homebrew/opt/postgresql@17/bin
 #maybe_prepend_path /usr/local/bin
 # homebrew arm64
-# maybe_prepend_path /opt/homebrew/bin
-# maybe_prepend_path /opt/homebrew/sbin
+maybe_prepend_path /opt/homebrew/bin
+maybe_prepend_path /opt/homebrew/sbin
 
 export SHELL_ARCH=$(arch | sed -e 's/.*86/x86/')
 
