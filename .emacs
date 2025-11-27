@@ -246,6 +246,20 @@ If REQUIRE-NAME is set, require it if already installed."
         (cd make-dir)
         (compile cmd)))))
 
+(defun make-umbrella (cmd)
+  "Find the highest-level Makefile and run CMD."
+  (interactive (list (read-string "make command: " "make -k")))
+  (let* ((first-make (locate-dominating-file default-directory "Makefile"))
+         (make-dir (when first-make
+                     (or (locate-dominating-file
+                          (file-name-directory (directory-file-name first-make))
+                          "Makefile")
+                         first-make))))
+    (when make-dir
+      (with-temp-buffer
+        (cd make-dir)
+        (compile cmd)))))
+
 ;; (defun reverse-string (s)
 ;;   "Return reverse of S."
 ;;   (coerce (reverse (loop for c across s collect c)) 'string))
