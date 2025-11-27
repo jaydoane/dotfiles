@@ -664,16 +664,18 @@ If REQUIRE-NAME is set, require it if already installed."
    '(("gnu" . "https://elpa.gnu.org/packages/")
      ("melpa-stable" . "https://melpa.org/packages/")))
  '(package-selected-packages
-   '(abc-mode ansible browse-kill-ring company consult-eglot consult-lsp
+   '(abc-mode aider ansible auth-source-1password browse-kill-ring
+              bufferlo claude-code company consult-eglot consult-lsp
               corfu dired-filter dired-git dired-preview dired-subtree
-              diredfl direnv dirvish dockerfile-mode ellama embark
-              embark-consult exec-path-from-shell flycheck groovy-mode
-              helm ini-mode jinja2-mode json-mode keycast logview
-              lsp-metals lsp-pyright lsp-ui lua-mode magit marginalia
-              mise mmm-mode mood-line mustache-mode orderless
-              org-superstar paredit rg sbt-mode tree-sitter
-              treemacs-all-the-icons treemacs-icons-dired treesit-auto
-              vertico vterm yaml-mode yasnippet))
+              diredfl dirvish dockerfile-mode eglot elixir-mode ellama
+              embark embark-consult exec-path-from-shell flycheck
+              go-mode gptel groovy-mode helm ini-mode jinja2-mode
+              json-mode keycast logview lsp-metals lsp-pyright lsp-ui
+              lua-mode magit marginalia mise mmm-mode mood-line
+              mustache-mode orderless org-superstar paredit rg
+              rust-mode rustic sbt-mode terraform-mode transient
+              tree-sitter treemacs-all-the-icons treemacs-icons-dired
+              treesit-auto vertico vterm websocket yaml-mode yasnippet))
  '(safe-local-variable-values
    '((git-commit-major-mode . git-commit-elisp-text-mode)
      (eval setq default-directory
