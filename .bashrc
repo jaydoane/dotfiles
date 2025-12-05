@@ -190,8 +190,6 @@ export GPG_TTY=$(tty)
 # https://starship.rs/guide/#%F0%9F%9A%80-installation
 command -v starship &> /dev/null && eval "$(starship init bash)"
 
-. "$HOME/.cargo/env"
-
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/Users/jay/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
